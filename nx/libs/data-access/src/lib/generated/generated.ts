@@ -134,6 +134,36 @@ export type GlobalVariableGroupInput = {
   message?: Maybe<Scalars['String']>;
 };
 
+export type Environment = {
+  __typename?: 'Environment';
+  name?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  targets?: Maybe<Array<Maybe<Target>>>;
+};
+
+export type EnvironmentInput = {
+  name: Scalars['String'];
+  description: Scalars['String'];
+};
+
+export type Target = {
+  __typename?: 'Target';
+  name?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
+  properties?: Maybe<Array<Entry>>;
+  username?: Maybe<Scalars['String']>;
+  password?: Maybe<Scalars['String']>;
+  keyStore?: Maybe<Scalars['String']>;
+  keyStorePassword?: Maybe<Scalars['String']>;
+  privateKey?: Maybe<Scalars['String']>;
+};
+
+export type Entry = {
+  __typename?: 'Entry';
+  key?: Maybe<Scalars['String']>;
+  value?: Maybe<Scalars['String']>;
+};
+
 export type Query = {
   __typename?: 'Query';
   user?: Maybe<User>;
@@ -146,6 +176,8 @@ export type Query = {
   campaignExecutionReport: CampaignExecutionReport;
   globalVariableGroupContent?: Maybe<GlobalVariableGroupContent>;
   globalVariableGroupsNames?: Maybe<Array<Maybe<Scalars['ID']>>>;
+  environments?: Maybe<Array<Maybe<Environment>>>;
+  environment?: Maybe<Environment>;
 };
 
 
@@ -175,6 +207,11 @@ export type QueryGlobalVariableGroupContentArgs = {
   groupName: Scalars['ID'];
 };
 
+
+export type QueryEnvironmentArgs = {
+  envName: Scalars['String'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   login?: Maybe<User>;
@@ -192,6 +229,7 @@ export type Mutation = {
   deleteGlobalVariableGroup?: Maybe<Scalars['Boolean']>;
   saveGlobalVariableGroup?: Maybe<Scalars['Boolean']>;
   renameGlobalVariableGroup?: Maybe<Scalars['Boolean']>;
+  updateEnvironment?: Maybe<Scalars['Boolean']>;
 };
 
 
@@ -279,6 +317,12 @@ export type MutationRenameGlobalVariableGroupArgs = {
 };
 
 
+export type MutationUpdateEnvironmentArgs = {
+  originalName?: Maybe<Scalars['String']>;
+  input?: Maybe<EnvironmentInput>;
+};
+
+
 
 export type CampaignExecutionReportQueryVariables = Exact<{
   campaignId: Scalars['ID'];
@@ -354,6 +398,38 @@ export type DeleteScenarioMutationVariables = Exact<{
 export type DeleteScenarioMutation = (
   { __typename?: 'Mutation' }
   & Pick<Mutation, 'deleteScenario'>
+);
+
+export type EnvironmentQueryVariables = Exact<{
+  envName: Scalars['String'];
+}>;
+
+
+export type EnvironmentQuery = (
+  { __typename?: 'Query' }
+  & { environment?: Maybe<(
+    { __typename?: 'Environment' }
+    & Pick<Environment, 'name' | 'description'>
+    & { targets?: Maybe<Array<Maybe<(
+      { __typename: 'Target' }
+      & Pick<Target, 'name' | 'url'>
+    )>>> }
+  )> }
+);
+
+export type EnvironmentsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type EnvironmentsQuery = (
+  { __typename?: 'Query' }
+  & { environments?: Maybe<Array<Maybe<(
+    { __typename?: 'Environment' }
+    & Pick<Environment, 'name' | 'description'>
+    & { targets?: Maybe<Array<Maybe<(
+      { __typename?: 'Target' }
+      & Pick<Target, 'name' | 'url'>
+    )>>> }
+  )>>> }
 );
 
 export type GlobalVariableGroupContentQueryVariables = Exact<{
@@ -576,6 +652,17 @@ export type UpdateCampaignMutation = (
   )> }
 );
 
+export type UpdateEnvironmentMutationVariables = Exact<{
+  originalName?: Maybe<Scalars['String']>;
+  input: EnvironmentInput;
+}>;
+
+
+export type UpdateEnvironmentMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'updateEnvironment'>
+);
+
 export type UserQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -709,6 +796,53 @@ export const DeleteScenarioDocument = gql`
   })
   export class DeleteScenarioGQL extends Apollo.Mutation<DeleteScenarioMutation, DeleteScenarioMutationVariables> {
     document = DeleteScenarioDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const EnvironmentDocument = gql`
+    query environment($envName: String!) {
+  environment(envName: $envName) @rest(type: "Environment", path: "api/v2/environment/{args.envName}") {
+    name
+    description
+    targets @type(name: "Target") {
+      __typename
+      name
+      url
+    }
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class EnvironmentGQL extends Apollo.Query<EnvironmentQuery, EnvironmentQueryVariables> {
+    document = EnvironmentDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const EnvironmentsDocument = gql`
+    query environments {
+  environments @rest(type: "Environment", path: "api/v2/environment") {
+    name
+    description
+    targets @type(name: "Target") {
+      name
+      url
+    }
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class EnvironmentsGQL extends Apollo.Query<EnvironmentsQuery, EnvironmentsQueryVariables> {
+    document = EnvironmentsDocument;
     
     constructor(apollo: Apollo.Apollo) {
       super(apollo);
@@ -1058,6 +1192,22 @@ export const UpdateCampaignDocument = gql`
   })
   export class UpdateCampaignGQL extends Apollo.Mutation<UpdateCampaignMutation, UpdateCampaignMutationVariables> {
     document = UpdateCampaignDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const UpdateEnvironmentDocument = gql`
+    mutation updateEnvironment($originalName: String, $input: EnvironmentInput!) {
+  updateEnvironment(originalName: $originalName, input: $input) @rest(type: "Environment", path: "api/v2/environment/{args.originalName}", method: "PUT")
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class UpdateEnvironmentGQL extends Apollo.Mutation<UpdateEnvironmentMutation, UpdateEnvironmentMutationVariables> {
+    document = UpdateEnvironmentDocument;
     
     constructor(apollo: Apollo.Apollo) {
       super(apollo);

@@ -11,22 +11,32 @@
       <span class="menu-name">Campaigns</span>
     </a>
   </li>
-  <li navAccordionItem class="chutney-sidemenu-item">
-    <a matRipple>
+  <li navAccordionItem class="chutney-sidemenu-item" type="sub">
+    <a navAccordionToggle class="chutney-sidemenu-toggle" matRipple>
       <mat-icon class="menu-icon">video_settings</mat-icon>
       <span class="menu-name">Composants</span>
+      <span fxFlex></span>
+      <mat-icon class="menu-caret">arrow_drop_down</mat-icon>
     </a>
+    <ul navAccordion class="chutney-sidemenu chutney-sidemenu-sub level-1">
+      <li navAccordionItem class="chutney-sidemenu-item">
+        <a matRipple>
+          <mat-icon class="menu-icon">video_settings</mat-icon>
+          <span class="menu-name">Components</span>
+        </a>
+      </li>
+      <li navAccordionItem class="chutney-sidemenu-item">
+        <a matRipple>
+          <mat-icon class="menu-icon">ondemand_video</mat-icon>
+          <span class="menu-name">Dataset</span>
+        </a>
+      </li>
+    </ul>
   </li>
   <li navAccordionItem class="chutney-sidemenu-item" routerLinkActive="active">
     <a class="chutney-sidemenu-link" routerLink="variables" matRipple>
       <mat-icon class="menu-icon">library_add</mat-icon>
       <span class="menu-name">Variables</span>
-    </a>
-  </li>
-  <li navAccordionItem class="chutney-sidemenu-item">
-    <a matRipple>
-      <mat-icon class="menu-icon">ondemand_video</mat-icon>
-      <span class="menu-name">Dataset</span>
     </a>
   </li>
   <li navAccordionItem class="chutney-sidemenu-item" type="sub">
@@ -38,13 +48,13 @@
     </a>
     <ul navAccordion class="chutney-sidemenu chutney-sidemenu-sub level-1">
       <li navAccordionItem class="chutney-sidemenu-item">
-        <a matRipple>
-          <span class="menu-name">BDD</span>
+        <a routerLink="environments" matRipple>
+          <span class="menu-name">Environments</span>
         </a>
       </li>
       <li navAccordionItem class="chutney-sidemenu-item">
         <a matRipple>
-          <span class="menu-name">Targets</span>
+          <span class="menu-name">BDD</span>
         </a>
       </li>
       <li navAccordionItem class="chutney-sidemenu-item">

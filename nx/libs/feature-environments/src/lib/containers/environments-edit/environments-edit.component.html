@@ -1,0 +1,21 @@
+<div class="mat-elevation-z8">
+  <chutney-page-header [title]="'Environments'" [breadcrumbs]="breadcrumbs">
+  </chutney-page-header>
+
+  <div class="environment-form">
+    <form [formGroup]="environmentForm" (ngSubmit)="updateEnvironment()" novalidate>
+      <mat-form-field>
+        <input matInput placeholder="Name" formControlName="name">
+      </mat-form-field>
+      <br>
+      <mat-form-field>
+        <input matInput placeholder="Description" formControlName="description">
+      </mat-form-field>
+      <br>
+      <div class="button-wrapper">
+        <button mat-flat-button>Submit</button>
+      </div>
+    </form>
+  </div>
+
+</div>

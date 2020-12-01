@@ -103,6 +103,33 @@ input GlobalVariableGroupInput {
   message: String
 }
 
+type Environment {
+  name: String
+  description: String
+  targets: [Target]
+}
+
+input EnvironmentInput {
+  name: String!
+  description: String!
+}
+
+type Target {
+  name: String
+  url: String
+  properties: [Entry!]
+  username: String
+  password: String
+  keyStore: String
+  keyStorePassword: String
+  privateKey: String
+}
+
+type Entry {
+  key: String
+  value: String
+}
+
 type Query {
   user: User
   scenarios: [Scenario]
@@ -114,6 +141,8 @@ type Query {
   campaignExecutionReport(campaignId: ID!, executionId: ID!): CampaignExecutionReport!
   globalVariableGroupContent(groupName: ID!): GlobalVariableGroupContent
   globalVariableGroupsNames: [ID]
+  environments: [Environment]
+  environment(envName: String!) :Environment
 }
 
 type Mutation {
@@ -132,6 +161,7 @@ type Mutation {
   deleteGlobalVariableGroup(groupName: ID!): Boolean
   saveGlobalVariableGroup(groupName: ID!, input: GlobalVariableGroupInput!): Boolean
   renameGlobalVariableGroup(groupName: ID!, input: GlobalVariableGroupInput!): Boolean
+  updateEnvironment(originalName: String, input: EnvironmentInput): Boolean
 }
 
 scalar RestFunction

@@ -1,0 +1,23 @@
+<chutney-page-header
+  [title]="'Environments'"
+  [breadcrumbs]="breadcrumbs"
+  [showBackIcon]="false">
+  <chutney-page-header-action>
+    <button
+      mat-fab
+      class="mat-accent zi-2"
+      aria-label="Add environments"
+      (click)="createEnvironment()"
+      [@animate]="{ value: '*', params: { delay: '300ms', scale: '0.2' } }"
+    >
+      <mat-icon>add</mat-icon>
+    </button>
+  </chutney-page-header-action>
+</chutney-page-header>
+
+<chutney-environments-list
+  [environments]="environments$ | async"
+  (view)="viewEnvironment($event)"
+  (edit)="updateEnvironment($event)"
+  (delete)="deleteEnvironment($event)"
+></chutney-environments-list>

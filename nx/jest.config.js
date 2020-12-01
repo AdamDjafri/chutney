@@ -11,5 +11,6 @@ module.exports = {
     '<rootDir>/libs/feature-i18n',
     '<rootDir>/libs/feature-campaigns',
     '<rootDir>/libs/feature-variables',
+    '<rootDir>/libs/feature-environments',
   ],
 };

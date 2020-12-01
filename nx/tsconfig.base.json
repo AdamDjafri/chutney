@@ -25,7 +25,8 @@
       "@chutney/ui-commons": ["libs/ui-commons/src/index.ts"],
       "@chutney/feature-i18n": ["libs/feature-i18n/src/index.ts"],
       "@chutney/feature-campaigns": ["libs/feature-campaigns/src/index.ts"],
-      "@chutney/feature-variables": ["libs/feature-variables/src/index.ts"]
+      "@chutney/feature-variables": ["libs/feature-variables/src/index.ts"],
+      "@chutney/feature-environments": ["libs/feature-environments/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

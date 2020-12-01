@@ -1,0 +1,3 @@
+mutation updateEnvironment($originalName: String, $input: EnvironmentInput!){
+   updateEnvironment(originalName: $originalName, input: $input) @rest(type: "Environment", path: "api/v2/environment/{args.originalName}", method: "PUT")
+}

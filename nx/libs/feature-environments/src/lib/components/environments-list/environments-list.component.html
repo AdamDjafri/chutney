@@ -1,0 +1,39 @@
+<mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      {{element.name}}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="description">
+    <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      {{element.description}}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="action">
+    <mat-header-cell *matHeaderCellDef fxFlex="150px" class="justify-content-center">Actions</mat-header-cell>
+    <mat-cell *matCellDef="let element" fxFlex="150px" class="justify-content-center">
+      <button (click)="viewEnvironment(element)" mat-icon-button>
+        <mat-icon class="material-icons-outlined">find_in_page</mat-icon>
+      </button>
+      <button (click)="editEnvironment(element)" mat-icon-button>
+        <mat-icon class="material-icons-outlined">edit</mat-icon>
+      </button>
+      <button (click)="deleteEnvironment(element)" mat-icon-button>
+        <mat-icon class="material-icons-outlined">delete</mat-icon>
+      </button>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="['name', 'description', 'action']"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: ['name', 'description', 'action']"></mat-row>
+
+  <div *matNoDataRow fxLayoutAlign="center center" style="min-height: 48px">
+    No data
+  </div>
+
+</mat-table>

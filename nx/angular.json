@@ -568,6 +568,32 @@
           }
         }
       }
+    },
+    "feature-environments": {
+      "projectType": "library",
+      "root": "libs/feature-environments",
+      "sourceRoot": "libs/feature-environments/src",
+      "prefix": "chutney",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/feature-environments/src/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/feature-environments/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      }
     }
   },
   "cli": {

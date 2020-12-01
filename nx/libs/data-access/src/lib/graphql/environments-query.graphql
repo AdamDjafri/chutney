@@ -1,0 +1,10 @@
+query environments {
+  environments @rest(type: "Environment", path: "api/v2/environment") {
+    name
+    description
+    targets @type(name: "Target"){
+      name
+      url
+    }
+  }
+}

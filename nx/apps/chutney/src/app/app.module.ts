@@ -60,6 +60,13 @@ import { TranslocoConfigModule } from '@chutney/feature-i18n';
                   (module) => module.FeatureVariablesModule
                 ),
             },
+            {
+              path: 'environments',
+              loadChildren: () =>
+                import('@chutney/feature-environments').then(
+                  (module) => module.FeatureEnvironmentsModule
+                ),
+            },
           ],
         },
         {

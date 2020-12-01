@@ -72,6 +72,9 @@
     },
     "feature-variables": {
       "tags": []
+    },
+    "feature-environments": {
+      "tags": []
     }
   }
 }
